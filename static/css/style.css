@@ -1,0 +1,11 @@
+
+div.image {
+   content:url(../img/Omen.png);
+   float: right;
+   width: 240px;
+   height: 420px;
+}​
+
+table, th, td {
+  border: 1px solid black;
+}
