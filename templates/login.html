@@ -1,0 +1,16 @@
+{% extends "universal.html" %}
+
+{% block desc %}
+<h1 align="center">Login</h1>
+<form action="/login" method="post">
+	<input placeholder="Username" type="text" name="username" align="center">
+	<br>
+	<input placeholder="Password" type="password" name="password" align="center">
+	<br>
+	<input type="submit" align="center">
+	<br>
+</form>
+<p align="center">{{message}}</p>
+<br>
+<a href="/signup"> <p align="center">Don't have an account?</p> </a>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "universal.html" %}
+
+{% block desc %}
+<a href="/logout">Log out</a>
+<br>
+<br>
+<br>
+<br>
+<h1>Your to do list:</h1>
+<br>
+<table style="width: 100%">
+	<tr>
+		<th>Activity</th>
+		<th>Status</th>
+	</tr>
+	{% for activity, status in query %}
+	<tr>
+		<td>{{activity}}</td>
+		<td>{{status}}</td>
+	</tr>
+	{% endfor %}
+</table>
+<br>
+
+<form action="/" method="post">
+	<p>Add a task:</p>&nbsp
+	<input placeholder="Activity" type="text" name="activity">
+	&nbsp
+	Status:
+	<select name="status">
+		<option value="Due">Due</option>
+		<option value="In progress">In progress</option>
+		<option value="Done">Done</option>
+	</select>
+	&nbsp
+	<input type="submit" name="action" value="add">
+	<br>
+</form>
+
+<form action="/" method="post">
+	<p>Remove a task:</p>
+	&nbsp
+	Activity:
+	<select name="activity">
+		{% for activity, _ in query %}
+		<option value="{{activity}}">{{activity}}</option>
+		{% endfor %}
+	</select>
+	&nbsp
+	<input type="submit" name="action" value="remove">
+	<br>
+</form>
+
+<form action="/" method="post">
+	<p>Update a task:</p>
+	&nbsp
+	Activity:
+	<select name="activity">
+		{% for activity, _ in query %}
+		<option value="{{activity}}">{{activity}}</option>
+		{% endfor %}
+	</select>
+	&nbsp
+	Status:
+	<select name="status">
+		<option value="Due">Due</option>
+		<option value="In progress">In progress</option>
+		<option value="Done">Done</option>
+	</select>
+	&nbsp
+	<input type="submit" name="action" value="update">
+	<br>
+</form>
+
+{% endblock %}
