@@ -1,16 +1,24 @@
 {% extends "universal.html" %}
 
 {% block desc %}
-<h1 align="center">Login</h1>
-<form action="/login" method="post">
-	<input placeholder="Username" type="text" name="username" align="center">
-	<br>
-	<input placeholder="Password" type="password" name="password" align="center">
-	<br>
-	<input type="submit" align="center">
-	<br>
-</form>
-<p align="center">{{message}}</p>
-<br>
-<a href="/signup"> <p align="center">Don't have an account?</p> </a>
+<a href="/">Go back</a><br>
+<main class="form-signin">
+	
+	<form action="/login" method="post">
+		<h1 align="center" class="h3 mb-3 fw-normal">Please login</h1>
+		<div class="form-floating">
+			<input id="username" placeholder="Username" type="text" name="username" class="form-control">
+			<label for="username">Username</label>
+		</div>
+		<div class="form-floating">
+			<input id="password" placeholder="Password" type="password" name="password" class="form-control">
+			<label for="password">Password</label>
+		</div>
+		<button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+		<p align="center">{{message}}</p>
+		<a href="/signup"> <p align="center">Don't have an account?</p> </a>
+	</form>
+	
+</main>
+
 {% endblock %}
