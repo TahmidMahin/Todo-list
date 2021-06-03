@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, g
 import model
 
 app = Flask(__name__)
-app.secret_key = '*************'
+app.secret_key = ***********
 
 
 @app.before_request
@@ -39,6 +39,7 @@ def home():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+	message = ""
 	if request.method == 'POST':
 		session.pop('username', None)
 		username = request.form['username']
@@ -49,7 +50,8 @@ def login():
 		if password == model.get_password(username):
 			session['username'] = username
 			return redirect(url_for('home'))
-	message = "Incorrect password"
+		else:
+			message = "Incorrect password"
 	return render_template('login.html', message=message)
 
 @app.route('/signup', methods = ['GET', 'POST'])
@@ -92,4 +94,4 @@ def next():
 	return render_template('privacy.html')
 
 if __name__ == '__main__':
-	app.run(port = 6969, debug=True)
+	app.run(port = 4200, debug=True)
