@@ -2,12 +2,14 @@ from flask import Flask, render_template, request, session, redirect, url_for, g
 import model
 
 app = Flask(__name__)
-app.secret_key = ***********
-
+app.secret_key = **********
 
 @app.before_request
 def before_request():
     g.username = None
+    g.admin = None
+    if 'admin' in session:
+    	g.admin = session['admin']
     if 'username' in session:
         g.username = session['username']
 
@@ -35,6 +37,7 @@ def home():
 			return redirect(url_for('home'))
 
 	message = "Login or signup"
+	session.pop('admin', None)
 	return render_template('home.html', message=message)
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -42,6 +45,7 @@ def login():
 	message = ""
 	if request.method == 'POST':
 		session.pop('username', None)
+		session.pop('admin', None)
 		username = request.form['username']
 		password = request.form['password']
 		if not model.find_user(username):
@@ -79,7 +83,48 @@ def signup():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    session.pop('admin', None)
     return redirect(url_for('home'))
+
+@app.route('/admin', methods = ['GET', 'POST'])
+def admin():
+	if 'admin' not in session:
+		message = ""
+		if request.method == 'POST':
+			session.pop('username', None)
+			session.pop('admin', None)
+			admin = request.form['admin']
+			password = request.form['password']
+			if not model.find_admin(admin):
+				message = "Admin does not exist"
+				return render_template('admin.html', message=message)
+			if password == model.get_admin_password(admin):
+				session['admin'] = admin
+				return redirect(url_for('admin'))
+			else:
+				message = "Incorrect password"
+		return render_template('admin.html', message=message)
+	g.admin = session['admin']
+	admin = session['admin']
+	totalUser = str(model.get_totalUser())
+	newUser = str(model.get_newUser())
+	totalList = str(model.get_totalList())
+	return render_template('admindash.html', totalUser=totalUser, newUser=newUser, totalList=totalList)
+
+@app.route('/admin/users', methods = ['GET', 'POST'])
+def adminUser():
+	query = []
+	if request.method == 'GET':
+		users = model.get_users()
+		return render_template('adminUser.html', users=users, query=query)
+	if request.form['action'] == 'remove':
+		username = request.form['user']
+		model.remove_user(username)
+	elif request.form['action'] == 'show activity':
+		username = request.form['user']
+		query = mode.get_activity(username)
+	return redirect(url_for('adminUser'))
+
 
 @app.route('/about-us', methods = ['GET'])
 def aboutus():
