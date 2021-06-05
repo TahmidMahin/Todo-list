@@ -1,0 +1,27 @@
+{% extends "universal.html" %}
+
+
+{% block desc %}
+<a href="/logout">Log out</a>
+<br><br><br>
+<table style="width: 50%" class="table table-secondary table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Total user signups</th>
+			<th>Total signups in the last 24 hours</th>
+			<th>Total lists created</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>{{totalUser}}</td>
+			<td>{{newUser}}</td>
+			<td>{{totalList}}</td>
+		</tr>
+		
+	</tbody>
+</table>
+
+<br><br><br>
+<a href="/admin/users">Users</a>
+{% endblock %}

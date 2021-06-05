@@ -1,0 +1,24 @@
+{% extends "universal.html" %}
+
+
+{% block desc %}
+<a href="/">Go back</a><br>
+<main class="form-signin">
+	
+	<form action="/admin" method="post">
+		<h1 align="center" class="h3 mb-3 fw-normal">Admin login</h1>
+		<div class="form-floating">
+			<input id="admin" placeholder="Admin" type="text" name="admin" class="form-control">
+			<label for="admin">Admin</label>
+		</div>
+		<div class="form-floating">
+			<input id="password" placeholder="Password" type="password" name="password" class="form-control">
+			<label for="password">Password</label>
+		</div>
+		<button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+		<p align="center">{{message}}</p>
+	</form>
+	
+</main>
+
+{% endblock %}
